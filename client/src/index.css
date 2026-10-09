@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-condensed: 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif;
+
+  --color-ink: #1a2236;
+  --color-ink-2: #2a3450;
+  --color-ink-soft: #4b5670;
+  --color-mute: #7a8499;
+  --color-line: #dfe3ea;
+  --color-line-soft: #ebeef3;
+  --color-canvas: #f2f4f7;
+  --color-panel: #ffffff;
+  --color-cobalt: #2d4bd8;
+  --color-cobalt-deep: #2238a8;
+  --color-cobalt-soft: #e9edfc;
+
+  --color-heat-cool: #5e8f86;
+  --color-heat-cool-soft: #e6f0ee;
+  --color-heat-warm: #c98a06;
+  --color-heat-warm-soft: #fbf1db;
+  --color-heat-hot: #e2531f;
+  --color-heat-hot-soft: #fde9e1;
+
+  --color-st-neu: #64708a;
+  --color-st-geprueft: #2d4bd8;
+  --color-st-kontaktiert: #7046d6;
+  --color-st-verhandlung: #b7791f;
+  --color-st-abgeschlossen: #2f8f4e;
+  --color-st-verworfen: #9aa2b1;
+
+  --color-ok: #2f8f4e;
+  --color-bad: #c43d18;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+    font-size: 14px;
+    line-height: 1.5;
+    font-feature-settings: 'tnum' 0;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--color-cobalt-soft);
+  }
+}
+
+@layer components {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-3.5 h-9 text-[13px] font-medium whitespace-nowrap transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-cobalt text-white hover:bg-cobalt-deep;
+  }
+  .btn-secondary {
+    @apply bg-panel text-ink border border-line hover:border-ink-soft/40 hover:bg-canvas;
+  }
+  .btn-ghost {
+    @apply text-ink-soft hover:text-ink hover:bg-ink/5;
+  }
+  .btn-danger {
+    @apply text-bad hover:bg-bad/8;
+  }
+
+  .field {
+    @apply h-9 w-full rounded-md border border-line bg-panel px-3 text-[13px] text-ink placeholder:text-mute transition-colors focus:border-cobalt focus:outline-none focus:ring-2 focus:ring-cobalt/15;
+  }
+  select.field {
+    @apply pr-8 appearance-none bg-no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a8499' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+  }
+
+  .panel {
+    @apply bg-panel border border-line rounded-[10px];
+  }
+
+  .label {
+    @apply block text-[12px] font-medium text-ink-soft mb-1.5;
+  }
+}
+
+@keyframes scan-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.scan-sweep {
+  animation: scan-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  animation: rise-in 220ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-sweep,
+  .rise-in,
+  .animate-spin {
+    animation: none !important;
+  }
+}
